@@ -1,4 +1,4 @@
-const baseData = [
+const leaderboard = [
 	{
 		userID: '4f4d5462-4a9f-483e-b620-9df9c13ec840',
 		displayName: 'Jone',
@@ -71,33 +71,4 @@ const baseData = [
 	},
 ];
 
-const scoreRandomizer = () => {
-	const playerIDX = Math.floor(Math.random() * baseData.length);
-	const additionalScore = Math.floor(Math.random() * 100 + 100);
-
-	return { playerIDX, additionalScore };
-};
-
-class FakeWebSocket {
-	url: string;
-
-	constructor(url: string) {
-		this.url = url;
-	}
-
-	onopen() {
-		const newMessageEvent = new MessageEvent('message', { data: baseData });
-		return newMessageEvent;
-	}
-
-	onmessage() {
-		const { playerIDX, additionalScore } = scoreRandomizer();
-
-		baseData[playerIDX].score = baseData[playerIDX].score + additionalScore;
-
-		const newMessageEvent = new MessageEvent('message', { data: baseData });
-		return newMessageEvent;
-	}
-}
-
-export default FakeWebSocket;
+export default leaderboard;
